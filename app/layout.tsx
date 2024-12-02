@@ -4,8 +4,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import Script from "next/script";
-import Navbar from "@/containers/home/navbar";
 import { createClient } from "@/lib/supabase/server";
+import LayoutProvider from "@/containers/layout-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,8 +30,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased font-sans`}>
-        <Navbar user={data.user} />
-        {children}
+        <LayoutProvider user={data.user}>{children}</LayoutProvider>
         <Toaster richColors position="bottom-center" />
       </body>
       <Analytics />

@@ -7,14 +7,14 @@ const Categories = () => {
     <section className="container mx-auto my-10 max-md:px-6">
       <ul className="grid md:grid-cols-3 gap-4 h-max max-md:max-w-lg max-md:mx-auto text-center">
         {categoriesFlated.map((category, index) => (
-          <Link
-            href={category.url}
-            className="grid gap-2 group cursor-pointer h-max overflow-hidden"
+          <section
+            // href={category.url}
+            className="grid gap-2 group cursor-pointer h-max overflow-hidden cursor-not-allowed"
             key={index}
           >
             <section className="max-md:aspect-video aspect-square bg-black/10 rounded"></section>
             <p className="text-base group-hover:underline">{category.label}</p>
-          </Link>
+          </section>
         ))}
         <ul />
         {/* <ul className="grid gap-4 list-disc list-inside"> */}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-
+import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
@@ -28,6 +28,7 @@ export default function RootLayout({
         {children}
         <Toaster richColors position="bottom-center" />
       </body>
+      <Analytics />
       <Script
         async
         src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}`}

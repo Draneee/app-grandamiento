@@ -54,7 +54,8 @@ const data = [
       {
         label: "Agranda tu pene en 30 dias",
         img: "",
-        url: "/categoria/reto-30-dias",
+        url: "/",
+        // url: "/categoria/reto-30-dias",
       },
     ],
   },

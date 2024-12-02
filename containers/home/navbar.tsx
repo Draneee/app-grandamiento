@@ -177,7 +177,7 @@ const Navbar = ({ user }: { user: User | null }) => {
 
   return (
     <>
-      <nav className="absolute w-full top-0 container flex justify-between py-4 mx-auto max-md:px-2">
+      <nav className="absolute w-full inset-x-0 z-20 top-0 container flex justify-between py-4 mx-auto max-md:px-2">
         <section className="grid place-items-center">
           <p className="text-xl font-normal text-center">
             APP

@@ -2,14 +2,12 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
-import Navbar from "./navbar";
 import { MousePointerClick, Telescope } from "lucide-react";
 import dynamic from "next/dynamic";
-import { User } from "@supabase/supabase-js";
 const AdBanner = dynamic(() => import("@/components/ads/ads-banner"), {
   ssr: false,
 });
-const Hero = ({ user }: { user: User | null }) => {
+const Hero = () => {
   return (
     <>
       <AdBanner
@@ -19,7 +17,6 @@ const Hero = ({ user }: { user: User | null }) => {
         data-ad-format="fluid"
       />
       <section className="h-dvh grid place-items-center w-full relative">
-        <Navbar user={user} />
         <section className="relative mt-40">
           <section className="absolute -top-80 inset-x-0 object-cover h-80 w-full">
             <Image

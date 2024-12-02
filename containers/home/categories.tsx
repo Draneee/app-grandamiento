@@ -1,20 +1,20 @@
-"use client";
+import Link from "next/link";
 import React from "react";
 
 const Categories = () => {
   const categoriesFlated = data.flatMap((category) => category.value);
-  console.log("categoriesFlated", categoriesFlated);
   return (
     <section className="container mx-auto my-10 max-md:px-6">
       <ul className="grid md:grid-cols-3 gap-4 h-max max-md:max-w-lg max-md:mx-auto text-center">
         {categoriesFlated.map((category, index) => (
-          <article
+          <Link
+            href={category.url}
             className="grid gap-2 group cursor-pointer h-max overflow-hidden"
             key={index}
           >
             <section className="max-md:aspect-video aspect-square bg-black/10 rounded"></section>
             <p className="text-base group-hover:underline">{category.label}</p>
-          </article>
+          </Link>
         ))}
         <ul />
         {/* <ul className="grid gap-4 list-disc list-inside"> */}
@@ -54,25 +54,26 @@ const data = [
       {
         label: "Agranda tu pene en 30 dias",
         img: "",
+        url: "/categoria/reto-30-dias",
       },
     ],
   },
-  {
-    label: "Dura mas en la cama",
-    value: [
-      {
-        label: "Ejercicios para prolongar la duracion",
-        img: "",
-      },
-    ],
-  },
-  {
-    label: 'Poses para que "ella" solo piense en ti',
-    value: [
-      {
-        label: "Top 3 poses para hacerlas venir",
-        img: "",
-      },
-    ],
-  },
+  // {
+  //   label: "Dura mas en la cama",
+  //   value: [
+  //     {
+  //       label: "Ejercicios para prolongar la duracion",
+  //       img: "",
+  //     },
+  //   ],
+  // },
+  // {
+  //   label: 'Poses para que "ella" solo piense en ti',
+  //   value: [
+  //     {
+  //       label: "Top 3 poses para hacerlas venir",
+  //       img: "",
+  //     },
+  //   ],
+  // },
 ];

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 
 const Categories = () => {
@@ -8,11 +7,12 @@ const Categories = () => {
       <ul className="grid md:grid-cols-3 gap-4 h-max max-md:max-w-lg max-md:mx-auto text-center">
         {categoriesFlated.map((category, index) => (
           <section
-            // href={category.url}
-            className="grid gap-2 group cursor-pointer h-max overflow-hidden cursor-not-allowed"
+            className="grid gap-2 group h-max overflow-hidden cursor-not-allowed"
             key={index}
           >
-            <section className="max-md:aspect-video aspect-square bg-black/10 rounded"></section>
+            <section className="max-md:aspect-video aspect-square bg-black/10 rounded grid place-items-center">
+              <span className="text-2xl font-semibold">Proximamente...</span>
+            </section>
             <p className="text-base group-hover:underline">{category.label}</p>
           </section>
         ))}

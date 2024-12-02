@@ -23,8 +23,22 @@ import {
 } from "@/components/ui/form";
 import { supabase } from "@/lib/supabase/client";
 import { toast } from "sonner";
+import { login, logout } from "@/app/actions";
+import { User } from "@supabase/supabase-js";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { LogOut } from "lucide-react";
 
-const Navbar = () => {
+const Navbar = ({ user }: { user: User | null }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [defaultTab, setDefaultTab] = React.useState<
@@ -51,28 +65,43 @@ const Navbar = () => {
     },
   });
 
-  const handleLoginSubmit = (values: z.infer<typeof loginSchema>) => {
+  const handleLoginSubmit = async (values: z.infer<typeof loginSchema>) => {
     console.log("Login values:", values);
+    setIsLoading(true);
     const { email, password } = values;
-    setIsLoading(true);
-    supabase.auth.signInWithPassword({ email, password }).then((response) => {
-      if (response.error) {
-        console.error("Error en el login:", response.error.message);
-        toast.error(response.error.message);
-      } else {
-        console.log("Usuario logueado con éxito");
+    toast.promise(
+      login({ email, password })
+        .then(() => setIsMenuOpen(false))
+        .finally(() => setIsLoading(false)),
+      {
+        loading: "Iniciando sesión...",
+        success: "¡Bienvenido!",
+        error: (e) => e.message,
       }
-      setIsLoading(false);
-    });
+    );
   };
+  const logoutPromise = async () =>
+    toast.promise(logout, {
+      loading: "Cerrando sesión...",
+      success: "¡Hasta luego!",
+      error: (e) => e.message,
+    });
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.metaKey && event.shiftKey && event.key === "I") {
+        // Llama a la función deseada aquí
+        console.log("Comando Shift I presionado");
+        logoutPromise();
+      }
+    };
 
-  const handleRegisterSubmit = async (
-    values: z.infer<typeof registerSchema>
-  ) => {
-    console.log("Register values:", values);
-    setIsLoading(true);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+  const handleRegisterFn = async (values: z.infer<typeof registerSchema>) => {
     const { email, password, username } = values;
-    console.log(username);
 
     try {
       console.log(`or query =>`, `username.eq.${username},email.eq.${email}`);
@@ -88,13 +117,11 @@ const Navbar = () => {
       console.log("data =>", data);
 
       if (data) {
-        if (data.email === email) {
-          toast.error("El correo ya está en uso, elige otro.");
-          return;
-        }
+        if (data.email === email)
+          throw new Error("El correo ya está en uso, elige otro.");
+
         if (data.username === username)
-          toast.error("El nombre de usuario ya está en uso, elige otro.");
-        return;
+          throw new Error("El nombre de usuario ya está en uso, elige otro.");
       }
 
       const { error } = await supabase.auth.signUp({
@@ -110,6 +137,31 @@ const Navbar = () => {
       } else {
         console.log("Usuario registrado con éxito");
       }
+    } catch (error) {
+      throw error;
+    }
+  };
+  const handleRegisterSubmit = async (
+    values: z.infer<typeof registerSchema>
+  ) => {
+    console.log("Register values:", values);
+    setIsLoading(true);
+    try {
+      toast.promise(
+        handleRegisterFn(values)
+          .then(() => {
+            registerForm.reset();
+            loginForm.reset();
+            setDefaultTab("login");
+          })
+          .finally(() => setIsLoading(false)),
+        {
+          loading: "Registrando usuario...",
+          success:
+            "Usuario registrado con éxito, te enviamos un correo de confirmación.",
+          error: (e) => e.message,
+        }
+      );
     } catch (e: unknown) {
       if (e instanceof Error) {
         console.error("Error en el registro:", e.message);
@@ -117,10 +169,10 @@ const Navbar = () => {
         console.error("Error en el registro:", e);
       }
     } finally {
-      setIsLoading(false);
     }
   };
-  console.log("hi");
+  console.log("user supabase =>", user);
+
   return (
     <>
       <nav className="absolute w-full top-0 container flex justify-between py-4 mx-auto max-md:px-2">
@@ -130,27 +182,52 @@ const Navbar = () => {
             <span className="italic font-semibold font-mono">GRANDAMIENTO</span>
           </p>
         </section>
-        <section className="flex gap-2">
-          <Button
-            onClick={() => {
-              setIsMenuOpen(true);
-              setDefaultTab("login");
-            }}
-            className="rounded-full"
-            variant={"outline"}
-          >
-            Inicia sesión
-          </Button>
-          <Button
-            className="rounded-full"
-            onClick={() => {
-              setDefaultTab("register");
-              setIsMenuOpen(true);
-            }}
-          >
-            Registro
-          </Button>
-        </section>
+        {user ? (
+          <section>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="size-9 cursor-pointer">
+                  <AvatarFallback className="bg-primary text-white">
+                    {user.user_metadata.name[0]}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuLabel>{user.user_metadata.name}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem onClick={logoutPromise}>
+                    <LogOut />
+                    <span>Log out</span>
+                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </section>
+        ) : (
+          <section className="flex gap-2">
+            <Button
+              onClick={() => {
+                setIsMenuOpen(true);
+                setDefaultTab("login");
+              }}
+              className="rounded-full"
+              variant={"outline"}
+            >
+              Inicia sesión
+            </Button>
+            <Button
+              className="rounded-full"
+              onClick={() => {
+                setDefaultTab("register");
+                setIsMenuOpen(true);
+              }}
+            >
+              Registro
+            </Button>
+          </section>
+        )}
       </nav>
       <Dialog
         open={isMenuOpen}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/react";
+// import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
@@ -32,7 +32,7 @@ export default async function RootLayout({
       <body className={`${inter.variable} antialiased font-sans`}>
         <LayoutProvider user={data.user}>{children}</LayoutProvider>
         <Toaster richColors position="bottom-center" />
-        <Analytics />
+        {/* <Analytics /> */}
       </body>
       <Script
         async

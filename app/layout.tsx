@@ -32,8 +32,8 @@ export default async function RootLayout({
       <body className={`${inter.variable} antialiased font-sans`}>
         <LayoutProvider user={data.user}>{children}</LayoutProvider>
         <Toaster richColors position="bottom-center" />
+        <Analytics />
       </body>
-      <Analytics />
       <Script
         async
         src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}`}

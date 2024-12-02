@@ -37,6 +37,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogOut } from "lucide-react";
+import useMediaQuery from "@/hooks/use-media-query";
 
 const Navbar = ({ user }: { user: User | null }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
@@ -45,6 +46,7 @@ const Navbar = ({ user }: { user: User | null }) => {
     "login" | "register" | string
   >("register");
 
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   // Formulario de login
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -217,15 +219,17 @@ const Navbar = ({ user }: { user: User | null }) => {
             >
               Inicia sesión
             </Button>
-            <Button
-              className="rounded-full"
-              onClick={() => {
-                setDefaultTab("register");
-                setIsMenuOpen(true);
-              }}
-            >
-              Registro
-            </Button>
+            {isDesktop && (
+              <Button
+                className="rounded-full"
+                onClick={() => {
+                  setDefaultTab("register");
+                  setIsMenuOpen(true);
+                }}
+              >
+                Registro
+              </Button>
+            )}
           </section>
         )}
       </nav>

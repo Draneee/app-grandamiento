@@ -9,7 +9,7 @@ const Hero = () => {
   return (
     <section className="h-dvh grid place-items-center w-full relative -mt-[68px]">
       <section className="relative mt-40">
-        <section className="absolute -top-80 inset-x-0 object-cover h-80 w-full">
+        <section className="absolute -top-72 md:-top-80 inset-x-0 object-cover h-80 w-full">
           <Image
             className=""
             src="https://res.cloudinary.com/dfi9lz3xh/image/upload/v1732927207/i_ldjcz5.svg"
@@ -29,7 +29,7 @@ const Hero = () => {
             <Telescope /> <p>Recibe todas nuestras noticias</p>
           </Button>
           <Link href={"/category/reto-30-dias"}>
-            <Button size={"lg"} className="rounded-full">
+            <Button size={"lg"} className="rounded-full w-full">
               <MousePointerClick />
               <p>
                 Click aqui para <span className="font-bold">agrandar</span>

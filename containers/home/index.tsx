@@ -1,7 +1,6 @@
 import React from "react";
 import Hero from "./hero";
 import Categories from "./categories";
-import Footer from "./footer";
 
 // type user from supabase
 const HomeContainer = () => {
@@ -9,7 +8,6 @@ const HomeContainer = () => {
     <>
       <Hero />
       <Categories />
-      <Footer />
     </>
   );
 };

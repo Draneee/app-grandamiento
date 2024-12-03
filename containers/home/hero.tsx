@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
 import { MousePointerClick, Telescope } from "lucide-react";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -27,12 +28,14 @@ const Hero = () => {
           <Button size={"lg"} className="rounded-full" variant={"outline"}>
             <Telescope /> <p>Recibe todas nuestras noticias</p>
           </Button>
-          <Button size={"lg"} className="rounded-full">
-            <MousePointerClick />
-            <p>
-              Click aqui para <span className="font-bold">agrandar</span>
-            </p>
-          </Button>
+          <Link href={"/category/reto-30-dias"}>
+            <Button size={"lg"} className="rounded-full">
+              <MousePointerClick />
+              <p>
+                Click aqui para <span className="font-bold">agrandar</span>
+              </p>
+            </Button>
+          </Link>
         </section>
       </section>
       <section className="w-full absolute bottom-0 inset-x-0 h-20 object-cover">

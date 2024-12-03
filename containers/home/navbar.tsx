@@ -39,13 +39,12 @@ import {
 import { LogOut } from "lucide-react";
 import useMediaQuery from "@/hooks/use-media-query";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-const AdBanner = dynamic(() => import("@/components/ads/ads-banner"), {
-  ssr: false,
-});
+import { useLoginState } from "@/context/login-state-provider";
 
 const Navbar = ({ user }: { user: User | null }) => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
+  const { value: isMenuOpen, setValue: setIsMenuOpen } = useLoginState();
+
+  // const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [defaultTab, setDefaultTab] = React.useState<
     "login" | "register" | string
@@ -182,12 +181,12 @@ const Navbar = ({ user }: { user: User | null }) => {
 
   return (
     <>
-      <AdBanner
+      {/* <AdBanner
         data-ad-slot="slotnumber"
         data-full-width-responsive="true"
         data-ad-layout="in-article"
         data-ad-format="fluid"
-      />
+      /> */}
       <nav className="absolute w-full inset-x-0 z-20 top-0 container flex justify-between py-4 mx-auto max-md:px-2">
         <Link href={"/"} className="grid place-items-center">
           <p className="text-xl font-normal text-center">

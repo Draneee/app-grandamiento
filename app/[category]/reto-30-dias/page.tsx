@@ -1,14 +1,7 @@
-import React from "react";
+import Reto30Dias from "@/containers/[category]/reto-30-dias";
 
-const Page = () => {
-  return (
-    <div className="container mx-auto">
-      <h1 className="text-center text-4xl">
-        ¡Agranda tu pene en{" "}
-        <span className="font-semibold italic">30 dias</span>!
-      </h1>
-    </div>
-  );
+const Page = async () => {
+  return <Reto30Dias />;
 };
 
 export default Page;

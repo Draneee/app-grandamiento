@@ -1,20 +1,34 @@
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Categories = () => {
   const categoriesFlated = data.flatMap((category) => category.value);
   return (
-    <section className="container mx-auto my-10 max-md:px-6">
-      <ul className="grid md:grid-cols-3 gap-4 h-max max-md:max-w-lg max-md:mx-auto text-center">
+    <section className="container mx-auto mt-10 max-md:px-6">
+      <ul className="flex justify-center items-center gap-4 h-max max-md:max-w-lg max-md:mx-auto text-center">
         {categoriesFlated.map((category, index) => (
-          <section
-            className="grid gap-2 group h-max overflow-hidden cursor-not-allowed"
+          <Link
+            className="grid gap-2 group h-max overflow-hidden max-w-[330px] size-full"
             key={index}
+            href={category.url}
           >
-            <section className="max-md:aspect-video aspect-square bg-black/10 rounded grid place-items-center">
-              <span className="text-2xl font-semibold">Proximamente...</span>
+            <section className="max-md:aspect-video aspect-square border-2 border-secondary bg-secondary rounded-2xl grid place-items-center overflow-hidden">
+              {/* <span className="text-2xl font-semibold">Proximamente...</span> */}
+
+              <section className="object-cover relative size-80">
+                <Image
+                  src={category.img}
+                  alt={category.label}
+                  fill
+                  className=""
+                />
+              </section>
             </section>
-            <p className="text-base group-hover:underline">{category.label}</p>
-          </section>
+            <p className="text-base group-hover:underline font-medium">
+              {category.label}
+            </p>
+          </Link>
         ))}
         <ul />
         {/* <ul className="grid gap-4 list-disc list-inside"> */}
@@ -53,9 +67,9 @@ const data = [
     value: [
       {
         label: "Agranda tu pene en 30 dias",
-        img: "",
-        url: "/",
-        // url: "/categoria/reto-30-dias",
+        img: "https://res.cloudinary.com/dfi9lz3xh/image/upload/v1733195517/Strolling_Character_fe6acv.svg",
+        // url: "/",
+        url: "/categoria/reto-30-dias",
       },
     ],
   },

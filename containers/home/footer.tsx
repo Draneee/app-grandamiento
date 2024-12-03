@@ -4,7 +4,7 @@ import React, { SVGProps } from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary py-10 text-white max-md:px-2">
+    <footer className="bg-primary py-10 text-white max-md:px-2 mt-10">
       <section className="container mx-auto grid md:grid-cols-2 max-md:gap-2">
         <section className="grid max-md:text-center">
           <p className="text-2xl font-normal">

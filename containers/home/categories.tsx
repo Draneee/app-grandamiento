@@ -16,7 +16,7 @@ const Categories = () => {
             <section className="max-md:aspect-video aspect-square border-2 border-secondary bg-secondary rounded-2xl grid place-items-center overflow-hidden">
               {/* <span className="text-2xl font-semibold">Proximamente...</span> */}
 
-              <section className="object-cover relative size-80">
+              <section className="object-cover relative size-full p-4">
                 <Image
                   src={category.img}
                   alt={category.label}

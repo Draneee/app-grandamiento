@@ -29,16 +29,16 @@ const LayoutProvider = ({
       <LoginStateProvider>
         <ConfetiProvider>
           <Confetti />
-          <AdBanner
-            data-ad-slot="slotnumber"
-            data-full-width-responsive="true"
-            data-ad-layout="in-article"
-            data-ad-format="fluid"
-          />
           <div className="mt-[68px]">
             <Navbar user={user} />
             {children}
             <Footer />
+            <AdBanner
+              data-ad-slot="slotnumber"
+              data-full-width-responsive="true"
+              data-ad-layout="in-article"
+              data-ad-format="fluid"
+            />
           </div>
         </ConfetiProvider>
       </LoginStateProvider>

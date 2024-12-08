@@ -29,8 +29,6 @@ const Reto30Dias = () => {
     false
   );
   const [isLoading, setIsLoading] = React.useState(false);
-  console.log("user 30 days", user);
-  console.log("user id", user?.id);
 
   const {
     data: dataDays,
@@ -111,7 +109,7 @@ const Reto30Dias = () => {
 
     return `${hours}h ${minutes}m ${seconds}s`;
   };
-  console.log("videoArray =>", videoArray);
+
   return (
     <div className="container mx-auto">
       <h1 className="text-center text-4xl">

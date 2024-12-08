@@ -72,7 +72,6 @@ const Navbar = ({ user }: { user: User | null }) => {
   });
 
   const handleLoginSubmit = async (values: z.infer<typeof loginSchema>) => {
-    console.log("Login values:", values);
     setIsLoading(true);
     const { email, password } = values;
     toast.promise(
@@ -95,8 +94,6 @@ const Navbar = ({ user }: { user: User | null }) => {
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.metaKey && event.shiftKey && event.key === "I") {
-        // Llama a la función deseada aquí
-        console.log("Comando Shift I presionado");
         logoutPromise();
       }
     };
@@ -110,7 +107,6 @@ const Navbar = ({ user }: { user: User | null }) => {
     const { email, password, username } = values;
 
     try {
-      console.log(`or query =>`, `username.eq.${username},email.eq.${email}`);
       const {
         data,
         // error: errorUser
@@ -120,7 +116,6 @@ const Navbar = ({ user }: { user: User | null }) => {
         .or(`username.eq.${username},email.eq.${email}`)
         .single(); // Esto asegura que solo se devuelve un resultado, si hay coincidencias
 
-      console.log("data =>", data);
 
       if (data) {
         if (data.email === email)
@@ -150,7 +145,6 @@ const Navbar = ({ user }: { user: User | null }) => {
   const handleRegisterSubmit = async (
     values: z.infer<typeof registerSchema>
   ) => {
-    console.log("Register values:", values);
     setIsLoading(true);
     try {
       toast.promise(
@@ -177,7 +171,6 @@ const Navbar = ({ user }: { user: User | null }) => {
     } finally {
     }
   };
-  console.log("user supabase =>", user);
 
   return (
     <>

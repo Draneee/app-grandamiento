@@ -95,10 +95,20 @@ const Reto30Dias = () => {
   };
   const daysLength = days.length;
   const lastDay = days.at(-1) ? new Date(days.at(-1)) : null;
+  const [timeLeft, setTimeLeft] = React.useState(
+    lastDay ? differenceInMilliseconds(addDays(lastDay, 1), new Date()) : 0
+  );
 
-  const timeLeft = lastDay
-    ? differenceInMilliseconds(addDays(lastDay, 1), new Date())
-    : 0;
+  React.useEffect(() => {
+    if (!lastDay) return;
+    
+    const timer = setInterval(() => {
+      const newTimeLeft = differenceInMilliseconds(addDays(lastDay, 1), new Date());
+      setTimeLeft(newTimeLeft);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [lastDay]);
 
   const isUnlocked = timeLeft <= 0;
 

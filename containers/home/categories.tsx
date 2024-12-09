@@ -9,11 +9,11 @@ const Categories = () => {
     <article className="container mx-auto my-10 max-md:px-6">
       <header className="text-center mb-16">
         <h2 className="text-6xl max-md:text-4xl font-semibold mb-4 font-mono">
-          Lorem ipsum dolor sit 🍆
+          ¡Métodos que sí funcionan! 🍆
         </h2>
-        <p className="text-2xl max-md:text-xs max-w-2xl mx-auto">
+        {/* <p className="text-2xl max-md:text-xs max-w-2xl mx-auto">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptates, quod, voluptate, quae voluptatem quas
-        </p>
+        </p> */}
       </header>
 
       <ul className="flex justify-center items-center gap-4 h-max max-md:max-w-lg max-md:mx-auto text-center">
@@ -36,11 +36,11 @@ const Categories = () => {
             </figure>
             <div className="space-y-2">
               <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
-                {category.label}
+                {category.label}{" "}😎
               </h3>
-              <p className="text-muted-foreground">
+              {/* <p className="text-muted-foreground">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit 😎
-              </p>
+              </p> */}
             </div>
           </Link>
         ))}

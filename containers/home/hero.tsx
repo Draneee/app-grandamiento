@@ -7,26 +7,30 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <section className="h-dvh grid place-items-center w-full relative -mt-[68px]">
-      <section className="relative mt-40">
-        <section className="absolute -top-72 md:-top-80 inset-x-0 object-cover h-80 w-full">
+    <section className="h-dvh grid place-items-center w-full relative">
+      <div className="relative mt-40">
+        <div className="absolute -top-72 md:-top-80 inset-x-0 object-cover h-80 w-full">
           <Image
-            className=""
             src="https://res.cloudinary.com/dfi9lz3xh/image/upload/v1732927207/i_ldjcz5.svg"
-            alt=""
+            alt="Imagen decorativa del hero"
             fill
+            priority
           />
-        </section>
-        <p className="text-6xl max-md:text-4xl font-normal text-center">
-          APP
-          <span className="italic font-semibold font-mono">GRANDAMIENTO</span>
-        </p>
-        <p className="text-center text-2xl max-md:text-xs">
-          ¡Si lo tienes chiquito es porque quieres!
-        </p>
-        <section className="flex max-md:grid justify-center gap-2 mt-4">
-          <Button size={"lg"} className="rounded-full" variant={"outline"}>
-            <Telescope /> <p>Recibe todas nuestras noticias</p>
+        </div>
+
+        <div className="text-center">
+          <h1 className="text-6xl max-md:text-4xl font-normal">
+            APP
+            <span className="italic font-semibold font-mono">GRANDAMIENTO</span>
+          </h1>
+          <p className="text-2xl max-md:text-xs">
+            ¡Si lo tienes chiquito es porque quieres!
+          </p>
+        </div>
+
+        <nav className="flex max-md:grid justify-center gap-2 mt-6">
+          <Button size={"lg"} className="rounded-full border-gray-300 hover:border-primary/50 hover:text-primary" variant={"outline"}>
+            <Telescope className="group-hover:text-primary" /> <p>Recibe todas nuestras noticias</p>
           </Button>
           <Link href={"/category/reto-30-dias"}>
             <Button size={"lg"} className="rounded-full w-full">
@@ -36,9 +40,12 @@ const Hero = () => {
               </p>
             </Button>
           </Link>
-        </section>
-      </section>
-      <section className="w-full absolute bottom-0 inset-x-0 h-20 object-cover">
+        </nav>
+
+      <figure 
+        className="w-full absolute bottom-[-7rem] inset-x-0 h-20 object-cover"
+        role="presentation"
+      >
         {/* <Image
           src="https://res.cloudinary.com/dfi9lz3xh/image/upload/v1732927976/Doodle_Arrow_Icon_gtmfsn.png"
           fill
@@ -46,7 +53,7 @@ const Hero = () => {
           alt="doodle arrow"
         /> */}
         <svg
-          className="size-20 mx-auto"
+          className="size-20 mx-auto animate-bounce"
           width="513"
           height="483"
           viewBox="0 0 513 483"
@@ -61,7 +68,8 @@ const Hero = () => {
             fill="black"
           />
         </svg>
-      </section>
+        </figure>
+      </div>
     </section>
   );
 };

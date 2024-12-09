@@ -110,12 +110,12 @@ const Reto30Dias = () => {
   };
   const daysLength = days.length;
   const lastDay = days.at(-1) ? new Date(days.at(-1)) : null;
-  const [timeLeft, setTimeLeft] = React.useState(
-    lastDay ? differenceInMilliseconds(addDays(lastDay, 1), new Date()) : 0
-  );
+  const [timeLeft, setTimeLeft] = React.useState<number | null>(null);
 
   React.useEffect(() => {
     if (!lastDay) return;
+    
+    setTimeLeft(differenceInMilliseconds(addDays(lastDay, 1), new Date()));
     
     const timer = setInterval(() => {
       const newTimeLeft = differenceInMilliseconds(addDays(lastDay, 1), new Date());
@@ -125,7 +125,8 @@ const Reto30Dias = () => {
     return () => clearInterval(timer);
   }, [lastDay]);
 
-  const isUnlocked = timeLeft <= 0;
+  const isUnlocked = timeLeft !== null && timeLeft <= 0;
+  const isButtonEnabled = timeLeft !== null && isUnlocked && !isLoading;
 
   const formatTimeLeft = (milliseconds: number) => {
     const seconds = Math.floor((milliseconds / 1000) % 60);
@@ -160,7 +161,7 @@ const Reto30Dias = () => {
         ¡Agranda tu pene en{" "}
         <span className="font-semibold italic">30 dias</span>!
       </h1>
-      <p className="py-4 text-center">
+      <p className="p-4 text-center">
         Alarga tu pene con estos ejercicios que te ayudarán a tener un pene más
         grande y fuerte.
       </p>
@@ -181,15 +182,16 @@ const Reto30Dias = () => {
               </Button>
             ) : (
               <Button
-                disabled={!isUnlocked}
-                onClick={handleNewDay || isLoading}
+                disabled={!isButtonEnabled}
+                onClick={handleNewDay}
                 className={`rounded-full ${isUnlocked ? "" : "bg-black"}`}
               >
                 {isUnlocked ? (
                   <p>¡Desbloquear siguiente dia!</p>
                 ) : (
                   <p>
-                    Tiempo restante para desbloquear: {formatTimeLeft(timeLeft)}
+                    Tiempo restante para desbloquear:{" "}
+                    {timeLeft === null ? "Cargando..." : formatTimeLeft(timeLeft)}
                   </p>
                 )}
               </Button>

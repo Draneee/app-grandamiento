@@ -87,11 +87,17 @@ const Navbar = ({ user }: { user: User | null }) => {
     );
   };
   const logoutPromise = async () =>
-    toast.promise(logout, {
-      loading: "Cerrando sesión...",
-      success: "¡Hasta luego!",
-      error: (e) => e.message,
-    });
+    toast.promise(
+      (async () => {
+        localStorage.removeItem('age-verified');
+        await logout();
+      })(),
+      {
+        loading: "Cerrando sesión...",
+        success: "¡Hasta luego!",
+        error: (e) => e.message,
+      }
+    );
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.metaKey && event.shiftKey && event.key === "I") {

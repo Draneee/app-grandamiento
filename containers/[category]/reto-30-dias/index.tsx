@@ -18,10 +18,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { AgeVerificationDialog } from "@/containers/age-verification-dialog";
+import { useRouter } from "next/navigation";
 const ALERT_AUDIO = new Audio(
   "https://res.cloudinary.com/dfi9lz3xh/video/upload/v1733174896/Confetti_Pop_Sound_dingal.mp3"
 );
 const Reto30Dias = () => {
+  const router = useRouter();
   const { user } = useUser();
   const { setValue } = useLoginState();
   const { setValue: setConfetti } = useConfetiState();
@@ -29,6 +32,18 @@ const Reto30Dias = () => {
     false
   );
   const [isLoading, setIsLoading] = React.useState(false);
+  const [hasVerified, setHasVerified] = React.useState(() => {
+    if (typeof window !== 'undefined' && user) {
+      return localStorage.getItem('age-verified') === 'true'
+    }
+    return true
+  });
+
+  React.useEffect(() => {
+    if (user) {
+      setHasVerified(localStorage.getItem('age-verified') === 'true');
+    }
+  }, [user]);
 
   const {
     data: dataDays,
@@ -119,6 +134,25 @@ const Reto30Dias = () => {
 
     return `${hours}h ${minutes}m ${seconds}s`;
   };
+
+  const handleVerification = () => {
+    localStorage.setItem('age-verified', 'true');
+    setHasVerified(true);
+  };
+
+  const handleReject = () => {
+    toast.error("Debes aceptar los términos para acceder al contenido");
+    router.push("/");
+  };
+
+  if (user && !hasVerified) {
+    return <AgeVerificationDialog 
+      open={true} 
+      onConfirm={handleVerification}
+      onReject={handleReject}
+      onClose={handleReject}
+    />;
+  }
 
   return (
     <div className="container mx-auto">

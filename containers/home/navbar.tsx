@@ -49,6 +49,7 @@ const Navbar = ({ user }: { user: User | null }) => {
   const [defaultTab, setDefaultTab] = React.useState<
     "login" | "register" | string
   >("register");
+  const [hasScrolled, setHasScrolled] = React.useState(false);
 
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   // Formulario de login
@@ -172,6 +173,15 @@ const Navbar = ({ user }: { user: User | null }) => {
     }
   };
 
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
       {/* <AdBanner
@@ -180,7 +190,9 @@ const Navbar = ({ user }: { user: User | null }) => {
         data-ad-layout="in-article"
         data-ad-format="fluid"
       /> */}
-      <nav className="absolute w-full inset-x-0 z-20 top-0 container flex justify-between py-4 mx-auto max-md:px-2">
+      <nav className={`fixed w-full inset-x-0 z-20 top-0 container flex justify-between py-4 mx-auto max-md:px-2 transition-all duration-200 ${
+        hasScrolled ? 'bg-background/80 backdrop-blur-sm shadow-sm' : ''
+      }`}>
         <Link href={"/"} className="grid place-items-center">
           <p className="text-xl font-normal text-center">
             APP

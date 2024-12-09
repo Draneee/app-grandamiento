@@ -4,8 +4,18 @@ import React from "react";
 
 const Categories = () => {
   const categoriesFlated = data.flatMap((category) => category.value);
+
   return (
-    <section className="container mx-auto mt-10 max-md:px-6">
+    <article className="container mx-auto my-10 max-md:px-6">
+      <header className="text-center mb-16">
+        <h2 className="text-6xl max-md:text-4xl font-semibold mb-4 font-mono">
+          Lorem ipsum dolor sit 🍆
+        </h2>
+        <p className="text-2xl max-md:text-xs max-w-2xl mx-auto">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptates, quod, voluptate, quae voluptatem quas
+        </p>
+      </header>
+
       <ul className="flex justify-center items-center gap-4 h-max max-md:max-w-lg max-md:mx-auto text-center">
         {categoriesFlated.map((category, index) => (
           <Link
@@ -13,27 +23,32 @@ const Categories = () => {
             key={index}
             href={category.url}
           >
-            <section className="max-md:aspect-video aspect-square border-2 border-secondary bg-secondary rounded-2xl grid place-items-center overflow-hidden">
+            <figure className="max-md:aspect-video aspect-square border-2 border-secondary bg-secondary rounded-2xl grid place-items-center overflow-hidden group-hover:border-primary transition-all duration-300">
               {/* <span className="text-2xl font-semibold">Proximamente...</span> */}
-
-              <section className="object-cover relative size-full p-4">
+              <div className="object-cover relative size-full p-4">
                 <Image
                   src={category.img}
                   alt={category.label}
                   fill
-                  className=""
+                  className="transition-transform group-hover:scale-105"
                 />
-              </section>
-            </section>
-            <p className="text-base group-hover:underline font-medium">
-              {category.label}
-            </p>
+              </div>
+            </figure>
+            <div className="space-y-2">
+              <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
+                {category.label}
+              </h3>
+              <p className="text-muted-foreground">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit 😎
+              </p>
+            </div>
           </Link>
         ))}
-        <ul />
-        {/* <ul className="grid gap-4 list-disc list-inside"> */}
+      </ul>
 
-        {/* {data.map((category, index) => (
+      {/* <ul className="grid gap-4 list-disc list-inside"> */}
+
+      {/* {data.map((category, index) => (
           <li key={index} className="grid gap-2">
             <section className="flex gap-2 items-center -ms-3">
               <HeartHandshake />
@@ -54,8 +69,7 @@ const Categories = () => {
             </section>
           </li>
         ))} */}
-      </ul>
-    </section>
+    </article>
   );
 };
 
@@ -74,19 +88,19 @@ const data = [
     ],
   },
   // {
-  //   label: "Dura mas en la cama",
+  //   label: "Lorem ipsum dolor",
   //   value: [
   //     {
-  //       label: "Ejercicios para prolongar la duracion",
+  //       label: "Lorem ipsum dolor sit amet",
   //       img: "",
   //     },
   //   ],
   // },
   // {
-  //   label: 'Poses para que "ella" solo piense en ti',
+  //   label: "Lorem ipsum dolor sit",
   //   value: [
   //     {
-  //       label: "Top 3 poses para hacerlas venir",
+  //       label: "Lorem ipsum dolor sit amet",
   //       img: "",
   //     },
   //   ],

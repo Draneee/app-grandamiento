@@ -144,9 +144,6 @@ const Navbar = ({ user }: { user: User | null }) => {
       } else {
         console.log("Usuario registrado con éxito");
       }
-      toast(
-        "Usuario registrado con éxito, te enviamos un correo de confirmación. Si no confirmas tu correo, no podrás acceder a la aplicación."
-      );
     } catch (error) {
       throw error;
     }
@@ -168,7 +165,7 @@ const Navbar = ({ user }: { user: User | null }) => {
         {
           loading: "Registrando usuario...",
           success:
-            "Usuario registrado con éxito, te enviamos un correo de confirmación.",
+            "Usuario registrado con éxito, te enviamos un correo de confirmación. Si no confirmas tu correo, no podrás acceder a la aplicación.",
           error: (e) => e.message,
         }
       );

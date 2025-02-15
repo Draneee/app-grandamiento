@@ -82,7 +82,8 @@ const Navbar = ({ user }: { user: User | null }) => {
       {
         loading: "Iniciando sesión...",
         success: "¡Bienvenido!",
-        error: (e) => e.message,
+        error:
+          "Error al iniciar sesión, verifica tus credenciales y asegúrate de haber confirmado tu correo.",
       }
     );
   };
@@ -143,6 +144,9 @@ const Navbar = ({ user }: { user: User | null }) => {
       } else {
         console.log("Usuario registrado con éxito");
       }
+      toast(
+        "Usuario registrado con éxito, te enviamos un correo de confirmación. Si no confirmas tu correo, no podrás acceder a la aplicación."
+      );
     } catch (error) {
       throw error;
     }
